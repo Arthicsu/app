@@ -1,0 +1,20 @@
+{% extends "main\base.html" %}
+
+{% block content %}
+<h2>Проверка документа</h2>
+<p><strong>Студент:</strong> {{ document.student.username }}</p>
+<p><strong>Описание:</strong> {{ document.description }}</p>
+<p><strong>Категория:</strong> {{ document.get_category_display }}</p>
+<p><strong>Дата загрузки:</strong> {{ document.uploaded_at|date:"d.m.Y" }}</p>
+
+<a href="{{ document.document.url }}">📄 Скачать документ</a>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Баллы:</label>
+    <input type="number" name="score" min="0" required>
+    
+    <button type="submit" name="approve">✅ Подтвердить</button>
+    <button type="submit" name="reject">❌ Отклонить</button>
+</form>
+{% endblock %}

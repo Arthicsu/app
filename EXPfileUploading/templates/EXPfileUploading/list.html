@@ -1,0 +1,18 @@
+{% extends "main\base.html" %}
+
+{% block content %}
+<h2>Ваши загруженные документы</h2>
+<ul>
+    {% for doc in documents %}
+        <li>
+            {{ doc.get_category_display }} - {{ doc.description }} 
+            ({{ doc.uploaded_at|date:"d.m.Y" }})
+            {% if doc.is_approved %}
+                ✅ Проверено (Баллы: {{ doc.score }})
+            {% else %}
+                ⏳ Ожидает проверки
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
