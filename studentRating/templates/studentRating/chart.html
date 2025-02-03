@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    body {
+        text-align: center;
+    }
+    #chart-container {
+        width: 50px;
+        height: 50px;
+        margin: auto;
+    }
+    canvas {
+        max-width: 90%;
+        max-height: 90%;
+    }
+</style>
+<body>
+    <h1>{{ title }}</h1>
+    <canvas id="radarChart"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            const chartData = {
+                labels: {{ labels|safe }},
+                datasets: {{ datasets|safe }}
+            };
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
