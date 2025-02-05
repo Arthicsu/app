@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="icon" href="{% static "{{ main/media/favicon.ico }}" %}">
+	<link rel="stylesheet" href="{% static "{{ main/fonts/stylesheet.css }}" %}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}{% endblock  %}
+    <script src="{% static "{{ main/js/index.js }}" %}" defer></script>
+	<title>{{ title }}</title>
+</head>
+<body>
+	<header class="header">
+		<div class="container">
+			<div class="header-wrapper">
+				<div class="header-logo">
+					<a href="#">
+                        <img src="{% static 'main/media/logo_BGITU.png' %}" alt="logo_BGITU" class="header-img">
+					</a>
+					<div class="breadcrumbs">
+						<a href="#" class="header-link">{{ header-title }}</a>
+						<span class="breadcrumbs__split">/</span>
+					</div>
+				</div>
+				<div class="header-content">
+					<a href="#">
+                        <img src="{% static 'main/media/logo_IT.png' %}" alt="logo_IT" class="header-img_it">
+                    </a>
+					<div class="header-content__item">
+						<a href="{% url "user:login" %}" class="header-link__item">Войти</a>
+						<a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+    {% block content %}
+    {% endblock  %}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" href="{% static "{{ main/css/style.css }}" %}">
+	<link rel="stylesheet" href="{% static "{{ main/css/normalize.css }}" %}">
+{% endblock  %}
+{% block content %}
+ {% comment %} контента не будет. {% endcomment %}
+{% endblock  %}

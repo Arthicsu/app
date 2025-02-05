@@ -4,5 +4,5 @@ __pycache__/
 .vscode
 .idea
 db.sqlite3
-static/deps/media
-static/deps/fonts
+static/main/media
+static/main/fonts
