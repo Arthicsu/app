@@ -2,92 +2,113 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static "main/css/style.css " %}">
-<link rel="stylesheet" href="{% static "main/css/normalize.css" %}">
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 <link rel="stylesheet" href="{% static 'teacherProfile/css/profile.css' %}">
 {% endblock %}
 
-{% block js %}
-<script src="{% static "{{ teacherProfile/js/script.js }}" %}" defer></script>
-{% endblock  %}
-
 {% block content %}
-<div class="teacher-dashboard">
-    <!-- Блок выбора групп -->
-    <div class="group-manager">
-        <div class="current-groups">
-            <h3>Ваши группы:</h3>
-            <div class="group-list">
-                {% for group in curated_groups %}
-                <a href="?group={{ group.id }}" 
-                   class="group-tab {% if group.id == selected_group.id %}active{% endif %}">
-                   {{ group.name }}
-                   <button onclick="removeGroup(event, {{ group.id }})">×</button>
-                </a>
-                {% endfor %}
+<section class="profile">
+    <div class="container">
+        <div class="profile-info">
+            <div class="container-profile">
+                <h1 class="profile-title">Информация о Вас</h1>
+                <img src="{% static 'teacherProfile/media/kazakov.svg' %}" alt="Фото профиля" class="profile-img">
+                <p class="profile-name">ФИО: {{ user.get_full_name }}</p>
+                <p class="profile-job">Должность: {{ user.position }}</p>
+                <p class="profile-groups">Курируемые группы: 
+                    {% for group in curated_groups %}
+                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+            </div>
+
+            <!-- Блок управления группами -->
+            <div class="container-group">
+                <div class="group-manager">
+                    <h3>Управление группами:</h3>
+                    <div class="group-filters">
+                        <select id="facultySelect" onchange="updateGroups()">
+                            <option value="">Все факультеты</option>
+                            <option value="EiEB" {% if selected_faculty == 'EiEB' %}selected{% endif %}>
+                                Экономика и экономическая безопасность
+                            </option>
+                            <option value="IT" {% if selected_faculty == 'IT' %}selected{% endif %}>
+                                Информационные технологии
+                            </option>
+                        </select>
+
+                        <select id="courseSelect" onchange="updateGroups()">
+                            <option value="">Все курсы</option>
+                            {% for i in "1234" %}
+                            <option value="{{ i }}" {% if selected_course == i %}selected{% endif %}>
+                                {{ i }} курс
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="current-groups">
+                        <h4>Ваши группы:</h4>
+                        <div class="group-list">
+                            {% for group in curated_groups %}
+                            <div class="group-tab {% if group.id == selected_group.id %}active{% endif %}">
+                                {{ group.name }}
+                                <button class="remove-group" 
+                                        onclick="removeGroup(event, {{ group.id }})">×</button>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="add-group-section">
+                        <select id="availableGroups">
+                            <option value="">Выберите группу для добавления</option>
+                            {% for group in available_groups %}
+                            <option value="{{ group.id }}">
+                                {{ group.name }} ({{ group.get_faculty_display }} {{ group.course }} курс)
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button class="add-group-btn" onclick="addGroup()">+ Добавить группу</button>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="group-filters">
-            <select id="facultySelect" onchange="updateGroups()">
-                <option value="">Все факультеты</option>
-                <option value="EiEB" {% if selected_faculty == 'EiEB' %}selected{% endif %}>Экономика и экономическая безопасность</option>
-                <option value="IT" {% if selected_faculty == 'IT' %}selected{% endif %}>Информационные технологии</option>
-            </select>
-        
-            <select id="courseSelect" onchange="updateGroups()">
-                <option value="">Все курсы</option>
-                <option value="1" {% if selected_course == '1' %}selected{% endif %}>1 курс</option>
-                <option value="2" {% if selected_course == '2' %}selected{% endif %}>2 курс</option>
-                <option value="3" {% if selected_course == '3' %}selected{% endif %}>3 курс</option>
-                <option value="4" {% if selected_course == '4' %}selected{% endif %}>4 курс</option>
-            </select>
-        </div>
-        
-        <div class="add-group">
-            <select id="availableGroups">
-                <option value="">Выберите группу</option>
-                {% for group in available_groups %}
-                <option value="{{ group.id }}">{{ group.name }} ({{ group.get_faculty_display }} {{ group.course }} курс)</option>
+
+        <!-- Список студентов -->
+        <div class="students-section">
+            <h2>Студенты группы: {{ selected_group.name|default:"Группа не выбрана!" }}</h2>
+            <div class="students-list" id="students-list">
+                {% for student in students %}
+                <div class="student-item" data-id="{{ student.id }}">
+                    <span>{{ forloop.counter }}. {{ student.full_name }}</span>
+                    <button class="delete-btn" onclick="deleteStudent({{ student.id }})">×</button>
+                </div>
                 {% endfor %}
-            </select>
-            <button onclick="addGroup()">+ Добавить группу</button>
-        </div>
-    </div>
-
-    <!-- Список студентов -->
-    <div class="students-section">
-        <h2>Студенты группы: {{ selected_group.name }}</h2>
-        <div class="students-list" id="students-list">
-            {% for student in students %}
-            <div class="student-item" data-id="{{ student.id }}">
-                <span>{{ forloop.counter }}. {{ student.full_name }}</span>
-                <button class="delete-btn" onclick="deleteStudent({{ student.id }})">×</button>
             </div>
-            {% endfor %}
+            <button class="add-student-btn" onclick="showAddForm()">+ Добавить студента</button>
         </div>
-        <button class="add-student-btn" onclick="showAddForm()">+ Добавить студента</button>
     </div>
+</section>
 
-    <!-- Модальное окно добавления студента -->
-    <div id="addModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Добавить студента</h3>
-            <form id="studentForm">
-                {% csrf_token %}
-                <input type="hidden" name="group_id" value="{{ selected_group.id }}">
-                <div class="form-group">
-                    <label>Номер зачетной книги:</label>
-                    <input type="text" name="record_book" required>
-                </div>
-                <div class="form-group">
-                    <label>ФИО:</label>
-                    <input type="text" name="full_name" required>
-                </div>
-                <button type="submit">Сохранить</button>
-            </form>
-        </div>
+<!-- Модальное окно -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Добавить студента</h3>
+        <form id="studentForm">
+            {% csrf_token %}
+            <input type="hidden" name="group_id" value="{{ selected_group.id }}">
+            <div class="form-group">
+                <label>Номер зачетной книги:</label>
+                <input type="text" name="record_book" required>
+            </div>
+            <div class="form-group">
+                <label>ФИО:</label>
+                <input type="text" name="full_name" required>
+            </div>
+            <button type="submit" class="save-btn">Сохранить</button>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -106,3 +106,159 @@
     cursor: pointer;
     margin-left: auto;
 }
+
+/* Блок управления группами */
+.container-group {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.group-manager {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.group-manager h3 {
+    font-size: 1.5rem;
+    color: #002D6E;
+    margin-bottom: 0.5rem;
+}
+
+.group-filters {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.group-filters select {
+    padding: 0.75rem 1rem;
+    border: 1px solid #D3D8E6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #6B7A99;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.group-filters select:hover {
+    border-color: #0050CF;
+    box-shadow: 0 0 0 3px rgba(0, 80, 207, 0.1);
+}
+
+.group-filters select:focus {
+    outline: none;
+    border-color: #0050CF;
+    box-shadow: 0 0 0 3px rgba(0, 80, 207, 0.2);
+}
+
+.current-groups h4 {
+    font-size: 1.25rem;
+    color: #002D6E;
+    margin-bottom: 1rem;
+}
+
+.group-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.group-tab {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background-color: #F0F5FF;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    color: #0050CF;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.group-tab.active {
+    background-color: #0050CF;
+    color: #ffffff;
+}
+
+.group-tab:hover {
+    background-color: #002D6E;
+    color: #ffffff;
+}
+
+.remove-group {
+    margin-left: 0.75rem;
+    background: none;
+    border: none;
+    color: #DC3545;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.remove-group:hover {
+    color: #B02A37;
+}
+
+.add-group-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+#availableGroups {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D3D8E6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 1rem;
+    color: #6B7A99;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#availableGroups:hover {
+    border-color: #0050CF;
+    box-shadow: 0 0 0 3px rgba(0, 80, 207, 0.1);
+}
+
+.add-group-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #0050CF;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-group-btn:hover {
+    background-color: #002D6E;
+}
+
+.add-group-btn:disabled {
+    background-color: #6B7A99;
+    cursor: not-allowed;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .group-filters {
+        flex-direction: column;
+    }
+
+    .add-group-section {
+        flex-direction: column;
+    }
+
+    .add-group-btn {
+        width: 100%;
+    }
+}

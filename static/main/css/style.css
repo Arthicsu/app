@@ -113,13 +113,27 @@ a{
 	color: #0050CF;
 	text-decoration: none;
 }
-.login-email, .registration-email{
+.login-link:hover{
+	color: rgb(148, 36, 36);
+}
+.login-email, .registration-email,.main-email{
 	color: #0050CF;
 	text-decoration: none;
+	cursor: pointer;
+}
+.login-email:hover{
+	color: rgb(148, 36, 36);
+}
+
+.registration-email:hover{
+	color: rgb(148, 36, 36);
+}
+.main-email:hover{
+	color: rgb(148, 36, 36);
 }
 .login-form__links{
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	margin: 30px 0 0 0 ;
 	gap: 10px;
 }
@@ -130,8 +144,8 @@ a{
 	font-size: 14px;
 	margin: 0px;
 }
-.login-info__rtl,.registration-info__rtl{
-	font-size: 14px;
+.login-info__rtl,.registration-info__rtl,.main-info__rtl{
+	font-size: 16px;
 	margin: 0px;
 	direction: rtl; 
 }
@@ -144,7 +158,7 @@ a{
 	border-left: 1px solid #D3D8E5;
 	height: 130px;
 }
-.login-footer,.registration-footer{
+.login-footer,.registration-footer,.main-footer{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -153,7 +167,7 @@ a{
 	margin: 20px;
 }
 
-.login-text,.registration-text{
+.login-text,.registration-text,.main-text{
 	margin: 16px 0px 30px 0px;
 	font-size: 13px;
 	text-align: center;
@@ -264,7 +278,8 @@ a{
 
 .header-wrapper{
 	display: flex;
-	justify-content: space-around;
+	margin: 0px 20px;
+	justify-content: space-between;
 }
 
 .header-logo{
@@ -335,4 +350,108 @@ a{
 
 .header-link__item:hover:after{
 	width: 100%;
+}
+
+/* Главная */
+.main-title{
+	font-size: 2em;
+	font-weight: 600;
+}
+.main{
+	height: 100vh;
+	padding: 120px 30px 0 30px;
+	background-color: #EDEFF3;
+}
+
+.main-widgets__content{
+	width: 70%;
+}
+.main-widgets__item{
+	max-width: 30%;
+	width: 100vh;
+	align-items: center;
+	display: flex;
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+}
+.main-button{
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0050cf;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.43;
+}
+.main-widgets{
+	width: 100%;
+	display: flex;
+	margin-top: 20px;
+	padding: 20px;
+	border-radius: 20px;
+    background-color: #fff;
+}
+
+.main-widgets__flex{
+	padding-bottom: 20px;
+	display: flex;
+	align-items: center;
+
+}
+.main-logo__subtitle{
+	padding-left: 20px;
+	color:  #0050CF;
+}
+
+.main-email:hover{
+	border-bottom: 1px solid rgba(0, 0, 0, 0);
+    transition: color .2s linear;
+}
+
+.main-link__password{
+	color: #6a7a98 !important;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 1.43;
+}
+
+.main-link__password:hover{
+	border-bottom: 1px solid black;
+	transition: 0.3s linear;
+}
+/* Профиль преподавателя */
+
+.profile{
+	height: 100vh;
+    padding: 120px 30px 0 30px;
+    background-color: #EDEFF3;
+	background-image: url(/media/Герб_БГИТУ.png);
+	background-repeat: no-repeat;
+	background-size: auto; 
+    background-position: center;
+}
+.profile-info{
+	display: flex;
+	justify-content: space-around;
+}
+.container-profile, .container-group{
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	padding: 20px 80px;
+	border-radius: 20px;
+	background-color: #fff;
+}
+
+.profile-img{
+	overflow: hidden;
+	object-fit:cover
+}
+
+.scrollbar-hidden{
+	overflow: hidden;
 }
