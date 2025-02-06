@@ -4,12 +4,13 @@
 <html lang="en">
 
 <head>
-	<link rel="icon" href="{% static "{{ main/media/favicon.ico }}" %}">
-	<link rel="stylesheet" href="{% static "{{ main/fonts/stylesheet.css }}" %}">
+	<link rel="icon" href="{% static "main/media/favicon.ico" %}">
+	<link rel="stylesheet" href="{% static "main/fonts/stylesheet.css" %}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block css %}{% endblock  %}
-    <script src="{% static "{{ main/js/index.js }}" %}" defer></script>
+	<script src="{% static "teacherProfile/js/script.js" %}" defer></script>
+	{% block js %}{% endblock  %}
 	<title>{{ title }}</title>
 </head>
 <body>
@@ -21,7 +22,7 @@
                         <img src="{% static 'main/media/logo_BGITU.png' %}" alt="logo_BGITU" class="header-img">
 					</a>
 					<div class="breadcrumbs">
-						<a href="#" class="header-link">{{ header-title }}</a>
+						<a href="#" class="header-link">asdasdasd</a>
 						<span class="breadcrumbs__split">/</span>
 					</div>
 				</div>
@@ -30,8 +31,10 @@
                         <img src="{% static 'main/media/logo_IT.png' %}" alt="logo_IT" class="header-img_it">
                     </a>
 					<div class="header-content__item">
-						<a href="{% url "user:login" %}" class="header-link__item">Войти</a>
-						<a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a>
+						{% comment %} <a href="{% url "user:login" %}" class="header-link__item">Войти</a>
+						<a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a> {% endcomment %}
+						<a href="#" class="header-link__item">Войти</a>
+						<a href="#" class="header-link__item">Зарегистрироваться</a>
 					</div>
 				</div>
 			</div>
