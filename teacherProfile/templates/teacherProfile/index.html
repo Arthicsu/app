@@ -21,8 +21,7 @@
                     {% endfor %}
                 </p>
             </div>
-
-            <!-- Блок управления группами -->
+            
             <div class="container-group">
                 <div class="group-manager">
                     <h3>Управление группами:</h3>
@@ -47,7 +46,7 @@
                         </select>
                     </div>
 
-                    <div class="current-groups">
+                    <div class="current-groups" onchange="updateGroups()">
                         <h4>Ваши группы:</h4>
                         <div class="group-list">
                             {% for group in curated_groups %}
@@ -75,7 +74,6 @@
             </div>
         </div>
 
-        <!-- Список студентов -->
         <div class="students-section">
             <h2>Студенты группы: {{ selected_group.name|default:"Группа не выбрана!" }}</h2>
             <div class="students-list" id="students-list">
@@ -85,29 +83,42 @@
                     <button class="delete-btn" onclick="deleteStudent({{ student.id }})">×</button>
                 </div>
                 {% endfor %}
+                {% if form.image.errors %}
+                <div class="alert alert-danger alert-dismissible fade show">{{form.image.errors}}</div>
+                {% endif %}
             </div>
             <button class="add-student-btn" onclick="showAddForm()">+ Добавить студента</button>
         </div>
     </div>
 </section>
 
-<!-- Модальное окно -->
 <div id="addModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h3>Добавить студента</h3>
+        <div class="modal-header">
+            <h3>Добавить студента</h3>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div id="error-message" class="error-message"></div>
         <form id="studentForm">
             {% csrf_token %}
             <input type="hidden" name="group_id" value="{{ selected_group.id }}">
             <div class="form-group">
                 <label>Номер зачетной книги:</label>
-                <input type="text" name="record_book" required>
+                <input type="text" name="record_book" required 
+                       class="modern-input"
+                       placeholder="Введите номер зачётки">
             </div>
             <div class="form-group">
                 <label>ФИО:</label>
-                <input type="text" name="full_name" required>
+                <input type="text" name="full_name" required
+                       class="modern-input"
+                       placeholder="Иванов Иван Иванович">
             </div>
-            <button type="submit" class="save-btn">Сохранить</button>
+            <div class="form-actions">
+                <button type="submit" class="modern-btn">Сохранить</button>
+                <button type="button" class="modern-btn cancel" 
+                        onclick="closeModal()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

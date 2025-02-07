@@ -1,10 +1,104 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static "main/css/style.css " %}">
 <link rel="stylesheet" href="{% static "main/css/normalize.css" %}">
-{% endblock  %}
+<link rel="stylesheet" href="{% static 'main/css/rating.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<script src="{% static 'main/js/script.js' %}"></script>
+{% endblock %}
+
 {% block content %}
- {% comment %} контента не будет. {% endcomment %}
-{% endblock  %}
+<div class="rating-container">
+    <nav class="category-nav">
+        {% for key, value in categories.items %}
+        <a href="?category={{ key }}" 
+           class="category-btn {% if current_category == key %}active{% endif %}">
+           {{ value }}
+        </a>
+        {% endfor %}
+    </nav>
+
+    <div class="filter-panel">
+        <input type="text" 
+               class="search-input" 
+               placeholder="Поиск по ФИО или номеру зачётки"
+               value="{{ search }}"
+               hx-get="{% url 'main:student_rating' %}"
+               hx-trigger="keyup changed delay:500ms"
+               hx-target=".rating-table"
+               hx-include="[name='category']">
+
+        <select class="faculty-select"
+                hx-get="{% url 'main:student_rating' %}"
+                hx-trigger="change"
+                hx-target=".rating-table">
+            <option value="">Все факультеты</option>
+            {% for faculty in faculties %}
+            <option value="{{ faculty.0 }}" {% if faculty.0 == request.GET.faculty %}selected{% endif %}>
+                {{ faculty.1 }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <select class="group-select"
+                hx-get="{% url 'main:student_rating' %}"
+                hx-trigger="change"
+                hx-target=".rating-table">
+            <option value="">Все группы</option>
+            {% for group in groups %}
+            <option value="{{ group.name }}" {% if group.name == request.GET.group %}selected{% endif %}>
+                {{ group.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="rating-table" hx-boost="true">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sort-header" data-sort="full_name">ФИО студента</th>
+                    <th class="sort-header" data-sort="-calculated_total">Баллы</th>
+                    <th>Факультет</th>
+                    <th>Курс</th>
+                    <th>Группа</th>
+                    <th>Рейтинг</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>
+                        <a href="#" class="student-link">
+                            {{ student.full_name }}
+                        </a> 
+                    </td>
+                    <td>{{ student.calculated_total }}</td>
+                    <td>{{ student.group.get_faculty_display }}</td>
+                    <td>{{ student.group.course }}</td>
+                    <td>{{ student.group.name }}</td>
+                    <td>
+                        <div class="star-rating">
+                            {% with stars=student.calculated_total|floatformat:0 %}
+                            {% for i in "12345" %}
+                            <span class="star {% if forloop.counter <= stars|divisibleby:35 %}filled{% endif %}">★</span>
+                            {% endfor %}
+                            {% endwith %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="no-results">Студентов не найдено</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

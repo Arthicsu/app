@@ -1,0 +1,124 @@
+.rating-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.category-nav {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: 0.8rem 1.6rem;
+    border-radius: 25px;
+    background: #f0f5ff;
+    color: #0050cf;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.category-btn.active {
+    background: #0050cf;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 80, 207, 0.2);
+}
+
+.filter-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-input, 
+.faculty-select, 
+.group-select {
+    padding: 0.8rem;
+    border: 1px solid #d3d8e6;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.search-input:focus, 
+.faculty-select:focus, 
+.group-select:focus {
+    border-color: #0050cf;
+    box-shadow: 0 0 0 3px rgba(0, 80, 207, 0.1);
+}
+
+.rating-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.rating-table th {
+    background: #0050cf;
+    color: white;
+    padding: 1.2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.rating-table th:hover {
+    background: #0040a3;
+}
+
+.rating-table td {
+    padding: 1.2rem;
+    border-bottom: 1px solid #f0f5ff;
+}
+
+.student-link {
+    color: #0050cf;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.student-link:hover {
+    text-decoration: underline;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.star {
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+.star.filled {
+    color: #ffd700;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+.star-rating {
+    display: flex;
+    gap: 0.2rem;
+}
+
+.star {
+    color: #ddd;
+    font-size: 1.2rem;
+}
+
+.star.filled {
+    color: #ffd700;
+}
