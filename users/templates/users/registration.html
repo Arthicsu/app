@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="icon" href="{% static 'media/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'fonts/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <script src="{% static 'index.js' %}" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-wrapper">
+                <div class="header-logo">
+                    <a href=""><img src="{% static 'media/logo_BGITU.png' %}" alt="" class="header-img"></a>
+                    <div class="breadcrumbs">
+                        <a href="{% url 'register' %}" class="header-link">Регистрация</a>
+                        <span class="breadcrumbs__split">/</span>
+                    </div>
+                </div>
+                <div class="header-content">
+                    <a href=""><img src="{% static 'media/logo_IT.png' %}" alt="" class="header-img_it"></a>
+                    <div class="header-content__item">
+                        <a href="{% url 'login' %}" class="header-link__item">Войти</a>
+                        <a href="{% url 'register' %}" class="header-link__item">Зарегистрироваться</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="registration">
+        <div class="registration-container">
+            <div class="registration-form">
+                <h1 class="registration-role">Регистрация</h1>
+                <form method="post" class="registration-form__form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input class="registration-button" type="submit" value="Зарегистрироваться">
+                </form>
+            </div>
+            <div class="registration-logo">
+                <p class="registration-text">
+                    Если у Вас возникли технические сложности, свяжитесь с нами по email:
+                    <a href="#" class="registration-email">mail@bgitu.ru</a>
+                </p>
+            </div>
+            <div class="registration-footer">
+                <p class="registration-info__rtl">
+                    BRYANSK STATE <br> TECHNOLOGICAL UNIVERSITY <br> OF ENGINEERING
+                </p>
+                <div class="registration-img">
+                    <img src="{% static 'media/logo_BGITU.png' %}" alt="" class="registration-bgitu">
+                </div>
+                <p class="registration-info">
+                    БРЯНСКИЙ ГОСУДАРСТВЕННЫЙ <br> ИНЖЕНЕРНО-ТЕХНОЛОГИЧЕСКИЙ <br> УНИВЕРСИТЕТ
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
