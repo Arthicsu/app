@@ -62,26 +62,17 @@
         <table>
             <thead>
                 <tr>
+                    <th>Рейтинг</th>
                     <th class="sort-header" data-sort="full_name">ФИО студента</th>
                     <th class="sort-header" data-sort="-calculated_total">Баллы</th>
-                    <th>Факультет</th>
                     <th>Курс</th>
                     <th>Группа</th>
-                    <th>Рейтинг</th>
+                    <th>Факультет</th>
                 </tr>
             </thead>
             <tbody>
                 {% for student in students %}
                 <tr>
-                    <td>
-                        <a href="#" class="student-link">
-                            {{ student.full_name }}
-                        </a> 
-                    </td>
-                    <td>{{ student.calculated_total }}</td>
-                    <td>{{ student.group.get_faculty_display }}</td>
-                    <td>{{ student.group.course }}</td>
-                    <td>{{ student.group.name }}</td>
                     <td>
                         <div class="star-rating">
                             {% with stars=student.calculated_total|floatformat:0 %}
@@ -91,10 +82,15 @@
                             {% endwith %}
                         </div>
                     </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="no-results">Студентов не найдено</td>
+                    <td>
+                        <a href="#" class="student-link">
+                            {{ student.full_name }}
+                        </a> 
+                    </td>
+                    <td>{{ student.calculated_total }}</td>
+                    <td>{{ student.group.course }}</td>
+                    <td>{{ student.group.name }}</td>
+                    <td>{{ student.group.get_faculty_display }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

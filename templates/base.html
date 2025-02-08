@@ -22,7 +22,7 @@
                         <img src="{% static 'main/media/logo_BGITU.png' %}" alt="logo_BGITU" class="header-img">
 					</a>
 					<div class="breadcrumbs">
-						<a href="#" class="header-link">asdasdasd</a>
+						<a href="#" class="header-link">{{ title }}</a>
 						<span class="breadcrumbs__split">/</span>
 					</div>
 				</div>
@@ -31,10 +31,16 @@
                         <img src="{% static 'main/media/logo_IT.png' %}" alt="logo_IT" class="header-img_it">
                     </a>
 					<div class="header-content__item">
-						{% comment %} <a href="{% url "user:login" %}" class="header-link__item">Войти</a>
-						<a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a> {% endcomment %}
-						<a href="#" class="header-link__item">Войти</a>
-						<a href="#" class="header-link__item">Зарегистрироваться</a>
+                        {% if not user.is_authenticated %}
+                            <a href="{% url "user:login" %}" class="header-link__item">Войти</a>
+                            <a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a>
+                        {% else %}
+                            <a href="{% url "profile:teacher_profile" %}" class="header-link__item">{{ user.get_full_name }}</a>
+                            <a href="{% url "user:logout" %}" class="header-link__item">Выйти</a>
+                            {% if user.is_admin or user.is_staff%}
+                                <a href="{% url "admin:index" %}" class="header-link__item">админ панель</a>
+                            {% endif %}
+                        {% endif %}
 					</div>
 				</div>
 			</div>

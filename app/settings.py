@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'teacherProfile',
     'main',
-    # 'users',
+    'users',
 ]
 
 HTMX = {
@@ -144,4 +144,7 @@ MEDIA_ROOT = BASE_DIR / '/media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/user/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
