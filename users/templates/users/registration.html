@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'user/js/script.js' %}" defer></script>
+<script src="{% static 'users/js/script.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -19,6 +19,12 @@
             <h1 class="registration-role">Регистрация</h1>
             <form method="post" class="registration-form__form">
                 {% csrf_token %}
+                <div class="registration-form__field">
+                    <label class="label-registration">Логин*</label>
+                    <div class="registration-input">
+                        <input type="text" id="username" name="username" required class="registration-input__field">
+                    </div>
+                </div>
                 <div class="registration-form__field">
                     <label class="label-registration">Фамилия*</label>
                     <div class="registration-input">
@@ -38,9 +44,9 @@
                     </div>
                 </div>
                 <div class="registration-form__field">
-                    <label class="label-registration">E-mail*</label>
+                    <label class="label-registration">E-mail (необязательно)</label>
                     <div class="registration-input">
-                        <input type="email" id="email" name="email" required class="registration-input__field">
+                        <input type="email" id="email" name="email" class="registration-input__field">
                     </div>
                 </div>
                 <div class="form-alert__info">
@@ -49,7 +55,7 @@
                     </p>
                 </div>
                 <div class="registration-form__field">
-                    <label class="label-registration">Телефон</label>
+                    <label class="label-registration">Телефон*</label>
                     <div class="registration-input">
                         <input type="tel" id="phone" placeholder="+7(___)___-__-__" name="phone" class="input-form__auth">
                     </div>

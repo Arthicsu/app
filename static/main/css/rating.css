@@ -28,6 +28,10 @@
     box-shadow: 0 4px 6px rgba(0, 80, 207, 0.2);
 }
 
+.category-btn:not(:last-child) {
+    margin-right: 1rem;
+}
+
 .filter-panel {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -35,18 +39,34 @@
     margin-bottom: 2rem;
 }
 
-.search-input, 
-.faculty-select, 
-.group-select {
-    padding: 0.8rem;
-    border: 1px solid #d3d8e6;
-    border-radius: 8px;
-    width: 100%;
-    transition: all 0.3s;
+.search-input {
+    flex: 2;
+    min-width: 250px;
+    max-width: 600px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-.search-input:focus, 
-.faculty-select:focus, 
+.faculty-select, .group-select {
+    flex: 1;
+    min-width: 150px;
+    max-width: 600px;
+}
+
+.dropdown-style {
+    width: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-input:focus,
+.faculty-select:focus,
 .group-select:focus {
     border-color: #0050cf;
     box-shadow: 0 0 0 3px rgba(0, 80, 207, 0.1);
@@ -58,7 +78,8 @@
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: block;
 }
 
 .rating-table th {
@@ -95,12 +116,16 @@
 }
 
 .star {
-    color: #ffd700;
     font-size: 1.2rem;
+    color: #ffd700; /* Цвет для активных звезд */
 }
 
 .star.filled {
     color: #ffd700;
+}
+
+.star:not(:last-child) {
+    margin-right: 0.2rem;
 }
 
 .no-results {
@@ -109,16 +134,22 @@
     color: #666;
 }
 
-.star-rating {
-    display: flex;
-    gap: 0.2rem;
+.sort-header {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
 }
 
-.star {
-    color: #ddd;
-    font-size: 1.2rem;
+.sort-header:hover {
+    background-color: #f5f5f5;
 }
 
-.star.filled {
-    color: #ffd700;
+.sorted-asc::after {
+    content: ' ▲';
+    color: #666;
+}
+
+.sorted-desc::after {
+    content: ' ▼';
+    color: #666;
 }

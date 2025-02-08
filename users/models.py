@@ -6,6 +6,7 @@ class User(AbstractUser):
     phone = models.CharField("Телефон", max_length=20)
     faculty = models.CharField("Факультет", max_length=100, blank=True)
     position = models.CharField("Должность", max_length=100, blank=True)
+    email = models.EmailField("Email", blank=True)
 
     class Meta:
         verbose_name = "Пользователь"

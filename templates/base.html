@@ -18,16 +18,16 @@
 		<div class="container">
 			<div class="header-wrapper">
 				<div class="header-logo">
-					<a href="#">
+					<a href="{% url "main:student_rating" %}">
                         <img src="{% static 'main/media/logo_BGITU.png' %}" alt="logo_BGITU" class="header-img">
 					</a>
 					<div class="breadcrumbs">
-						<a href="#" class="header-link">{{ title }}</a>
+						<a href="{% url "main:student_rating" %}" class="header-link">{{ title }}</a>
 						<span class="breadcrumbs__split">/</span>
 					</div>
 				</div>
 				<div class="header-content">
-					<a href="#">
+					<a href="https://it.bgitu.ru/">
                         <img src="{% static 'main/media/logo_IT.png' %}" alt="logo_IT" class="header-img_it">
                     </a>
 					<div class="header-content__item">

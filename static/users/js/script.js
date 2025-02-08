@@ -1,7 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
     const studentForm = document.getElementById('studentForm');
     const errorElement = document.getElementById('error-message');
+    const requiredFields = studentForm.querySelectorAll('[required]');
+    let isValid = true;
+    
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('error-field');
+        }
+    });
 
+    if (!isValid) {
+        errorElement.textContent = 'Заполните все обязательные поля';
+        errorElement.style.display = 'block';
+        return;
+    }
+    
     if (studentForm && errorElement) {
         studentForm.addEventListener('submit', async (evt) => {
             evt.preventDefault();
@@ -12,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('/teacher/api/students/add/', {
                     method: 'POST',
                     headers: {
-                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                        'X-CSRFToken': getCSRFToken(),
                     },
                     body: formData
                 });
@@ -20,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Ошибка сервера');
+                    const errorMsg = data.error || data.message || 'Ошибка сервера';
+                    throw new Error(errorMsg);
                 }
                 
                 addStudentToList(data);
@@ -32,6 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => errorElement.style.display = 'none', 5000);
             }
         });
+    }
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
     }
 
     const handleSort = function() {

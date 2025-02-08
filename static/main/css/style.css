@@ -455,3 +455,185 @@ a{
 .scrollbar-hidden{
 	overflow: hidden;
 }
+
+.main-title{
+	font-size: 2em;
+	font-weight: 600;
+}
+.main{
+	height: 100vh;
+	padding: 120px 30px 0 30px;
+	background-color: #EDEFF3;
+}
+
+.main-widgets__content{
+	width: 70%;
+}
+.main-widgets__item{
+	max-width: 30%;
+	width: 100vh;
+	align-items: center;
+	display: flex;
+	text-align: center;
+	flex-direction: column;
+	justify-content: center;
+}
+.main-button{
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #0050cf;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.43;
+}
+.main-widgets{
+	width: 100%;
+	display: flex;
+	margin-top: 20px;
+	padding: 20px;
+	border-radius: 20px;
+    background-color: #fff;
+}
+
+.main-widgets__flex{
+	padding-bottom: 20px;
+	display: flex;
+	align-items: center;
+
+}
+.main-logo__subtitle{
+	padding-left: 20px;
+	color:  #0050CF;
+}
+
+.main-email:hover{
+	border-bottom: 1px solid rgba(0, 0, 0, 0);
+    transition: color .2s linear;
+}
+
+.main-link__password{
+	color: #6a7a98 !important;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 1.43;
+}
+
+.main-link__password:hover{
+	border-bottom: 1px solid black;
+	transition: 0.3s linear;
+}
+/* Стили для таблицы */
+.table-student {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    border: 2px solid rgb(140, 140, 140);
+}
+
+.table-student th, .table-student td {
+    border: 2px solid rgb(140, 140, 140);
+    padding: 15px;
+    font-weight: 600;
+}
+
+/* Стили для фильтров */
+.filter-panel {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.faculty-select, .group-select {
+    flex: 1;
+}
+
+/* Стили для выпадающих меню */
+.dropdown-style {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-style:hover {
+    border-color: #0050CF;
+}
+
+.dropdown-style:focus {
+    outline: none;
+    border-color: #003C99;
+    box-shadow: 0 0 5px rgba(0, 80, 207, 0.5);
+}
+
+/* Фильтр-панель: выравнивание и отступы */
+.filter-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Поле поиска */
+.search-input {
+    flex: 2;
+    min-width: 300px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Стили для выпадающих меню */
+.faculty-select, .group-select {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Общий стиль выпадающих меню */
+.dropdown-style {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.dropdown-style:hover {
+    border-color: #0050CF;
+}
+
+.dropdown-style:focus {
+    outline: none;
+    border-color: #003C99;
+    box-shadow: 0 0 5px rgba(0, 80, 207, 0.5);
+}
+
+.dropdown-style option {
+    font-size: 14px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000000;
+}
+
+.dropdown-style option:hover {
+    background-color: #0050CF;
+}
+

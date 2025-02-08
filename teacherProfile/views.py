@@ -64,11 +64,24 @@ class AddStudentView(View):
             record_book = request.POST.get('record_book')
             full_name = request.POST.get('full_name')
             
-            if not all([group_id, record_book, full_name]):
+            if not group_id:
                 return JsonResponse(
-                    {'error': 'Все поля обязательны для заполнения'}, 
+                    {'error': 'Вы не выбрали группу!'}, 
                     status=400
                 )
+
+            if not record_book:
+                return JsonResponse(
+                    {'error': 'Заполните номер зачетной книжки!'}, 
+                    status=400
+                )
+
+            if not full_name:
+                return JsonResponse(
+                    {'error': 'Заполните ФИО студента!'}, 
+                    status=400
+                )
+
 
             group = Group.objects.get(id=group_id)
             if group.curator != request.user:
