@@ -23,4 +23,5 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='user')),
     path('teacher/', include('teacherProfile.urls', namespace='profile')),
     path('student/', include('studentProfile.urls', namespace='studentProfile')),
+    path('', include('loadFiles.urls', namespace='loadFiles')),
 ]

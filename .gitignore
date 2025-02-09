@@ -7,3 +7,4 @@ db.sqlite3
 static/main/media
 static/teacherProfile/media
 static/main/fonts
+media/

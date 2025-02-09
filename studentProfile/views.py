@@ -1,10 +1,10 @@
-import json
 from django.shortcuts import render, get_object_or_404
 from teacherProfile.models import Student
+import json
 
 def student_profile(request, student_id):
     student = get_object_or_404(Student, id=student_id)
-    documents = student.documents.all()
+    documents = student.student_documents.all()
     
     radar_data = [
         student.social_score,

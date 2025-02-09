@@ -13,6 +13,42 @@
 	{% block js %}{% endblock  %}
 	<title>{% block title %}{% endblock %}</title>
 </head>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const userNames = document.querySelectorAll('.header-link__item');
+
+		userNames.forEach(element => {
+			const fullName = element.textContent.trim().split(' ');
+			
+			if (fullName.length >= 2) {
+				let formattedName = fullName[0];
+				
+				formattedName += ' ' + fullName[1][0] + '.'; 
+				
+				if (fullName.length >= 3) {
+					formattedName += fullName[2][0] + '.';
+				}
+				
+				element.textContent = formattedName;
+			}
+		});
+	});
+</script>
+<script defer>
+	document.addEventListener('DOMContentLoaded', function() {
+		const formatName = (element) => {
+			const parts = element.textContent.trim().split(/\s+/).filter(Boolean);
+			if (parts.length >= 2) {
+				let formatted = parts[0] + ' '; 
+				formatted += parts[1][0] + '.'; 
+				if (parts.length >= 3) formatted += parts[2][0] + '.'; 
+				element.textContent = formatted;
+			}
+		};
+	
+		document.querySelectorAll('.header-link__item').forEach(formatName);
+	});
+</script>
 <body>
 	<header class="header">
 		<div class="container">
@@ -35,7 +71,9 @@
                             <a href="{% url "user:login" %}" class="header-link__item">Войти</a>
                             <a href="{% url "user:registration" %}" class="header-link__item">Зарегистрироваться</a>
                         {% else %}
-                            <a href="{% url "profile:teacher_profile" %}" class="header-link__item">{{ user.get_full_name }}</a>
+							<a href="{% url 'profile:teacher_profile' %}" class="header-link__item">
+								{{ user.last_name }} {{ user.first_name }} {{ user.patronymic }}
+							</a>
                             <a href="{% url "user:logout" %}" class="header-link__item">Выйти</a>
                             {% if user.is_admin or user.is_staff%}
                                 <a href="{% url "admin:index" %}" class="header-link__item">админ панель</a>

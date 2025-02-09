@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="{% static 'fonts/stylesheet.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/normalize.css' %}">
+<link rel="stylesheet" href="{% static 'loadFiles/css/upload.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'loadFiles/js/script.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<body class="scrollbar-hidden">
+    <section class="achievements">
+        <div class="container">
+            <h1 class="achievements-title">Загрузка достижений</h1>
+            
+            {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                <div class="alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="achievements-main">
+                <form method="post" enctype="multipart/form-data" class="achievements-form">
+                    {% csrf_token %}
+                    <div class="achievements-input">
+                        <label class="label-login">*Номер зачётной книжки</label>
+                        <input class="achievements-button" name="record_book" type="text" required>
+                    </div>
+
+                    <div class="achievements-input">
+                        <label class="label-login">*Тип деятельности</label>
+                        <select class="achievements-button" name="category" required>
+                            <option value="academic">Учебная</option>
+                            <option value="cultural">Культурно-творческая</option>
+                            <option value="social">Общественная</option>
+                            <option value="sport">Спортивная</option>
+                            <option value="research">Научно-исследовательская</option>
+                        </select>
+                    </div>
+
+                    <div class="achievements-input">
+                        <label class="label-login">*Тип документа</label>
+                        <select class="achievements-button" name="doc_type" required>
+                            <option value="diploma">Диплом</option>
+                            <option value="certificate">Сертификат</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="achievements-input">
+                        <label class="label-login">*Достижение</label>
+                        <input class="achievements-button" name="achievement" type="text" required>
+                    </div>
+
+                    <div class="achievements-input">
+                        <label class="label-login">*Баллы</label>
+                        <input class="achievements-button" name="score" type="number" min="0" required>
+                    </div>
+
+                    <div class="file-upload-wrapper">
+                        <button type="button" class="achievements-button" onclick="document.getElementById('file-input').click()">
+                            Выберите файлы (.PDF, .DOC, .DOCX, .JPG, .PNG)
+                        </button>
+                        <input id="file-input" type="file" name="files" multiple hidden accept=".pdf,.doc,.docx,.jpg,.png" required>
+                    </div>
+
+                    <button type="submit" class="achievements-button-dowloading">Загрузить</button>
+                </form>
+
+                <div class="achievements-img">
+                    <div class="achievements-text achievements-input">
+                        <img class="qrcode" style="width: 250px;" src="{% static 'loadFiles/media/file.svg' %}" alt="QR-код">
+                        <div id="file-list" class="file-list"></div>
+                    </div>
+                    <div class="achievements-flex">
+                        <p class="achievements-text-2">
+                            Актуальную разбалловку узнайте здесь:<br>
+                        <a href="https://clck.ru/3GCR4s" class="achievements-link">clck.ru/3GCR4s</a><br>
+                        </p>
+                        <div class="achievements-qrcode">
+                            <img class="qrcode" src="{% static 'loadFiles/media/qr.svg' %}" alt="QR-код">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

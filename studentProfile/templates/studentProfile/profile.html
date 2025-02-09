@@ -93,15 +93,21 @@
             </div>
 
             <div class="student-documents">
-                <h1>Достижения</h1>
+                <h2>Документы</h2>
                 {% for doc in documents %}
                 <div class="document-item">
-                    <span>{{ doc.uploaded_at|date:"d.m.Y" }}</span>
-                    <span>{{ doc.get_category_display }}</span>
-                    <span>{{ doc.achievement }}</span>
-                    <span>{{ doc.score }} баллов</span>
-                    <a href="{{ doc.file.url }}" download>Скачать</a>
+                    <div class="doc-date">
+                        {{ doc.uploaded_at|date:"d.m.Y H:i" }}
+                    </div>
+                    <div class="doc-category">{{ doc.get_category_display }}</div>
+                    <div class="doc-achievement">{{ doc.achievement }}</div>
+                    <div class="doc-score">{{ doc.score }} баллов</div>
+                    <a href="{{ doc.file.url }}" download class="doc-download">
+                        Скачать ({{ doc.file.name|slice:"-3:"|upper }})
+                    </a>
                 </div>
+                {% empty %}
+                <p>Документов пока нет</p>
                 {% endfor %}
             </div>
         </div>
