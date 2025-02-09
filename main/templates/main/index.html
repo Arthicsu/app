@@ -80,7 +80,12 @@
                         {% for student in students %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ student.full_name }}</td>
+                            <td>
+                                <a href="{% url 'studentProfile:student_profile' student.id %}" 
+                                   class="student-link">
+                                    {{ student.full_name }}
+                                </a>
+                            </td>
                             <td>{{ student|get_attr:score_field }}</td>
                             <td>{{ student.record_book }}</td>
                             <td>{{ student.group.name }}</td>

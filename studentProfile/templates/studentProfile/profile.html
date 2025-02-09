@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'studentProfile/css/normalize.css' %}">
+<link rel="stylesheet" href="{% static 'studentProfile/css/profile.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('radarChart');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: {{ radar_labels_json|safe }},
+                datasets: [{
+                    label: 'Баллы',
+                    data: {{ radar_data_json|safe }},
+                    backgroundColor:['rgba(0, 80, 207, 0.2)', 'green','yellow','purple', 'red' ],
+                    borderColor: ['rgb(3, 63, 160)', 'green','yellow','purple', 'red' ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    r: { 
+                        beginAtZero: true,
+                        max: Math.max(...{{ radar_data_json|safe }}) + 10 || 100
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block title %}Профиль студента{% endblock %}
+
+{% block content %}
+<section class="profile">
+    <div class="container">
+        <div class="profile__student-table">
+            <h1 class="student-title">Профиль студента</h1>
+            <table class="table-student">
+                <thead>
+                    <tr>
+                      <th class="table-massives"  scope="col">Номер зачётной книги</th>
+                      <th class="table-massives"  scope="col">ФИО</th>
+                      <th class="table-massives"  scope="col">Баллы</th>
+                      <th class="table-massives"  scope="col">Кафедра</th>
+                      <th class="table-massives"  scope="col">Курс</th>
+                      <th class="table-massives"  scope="col">Группа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-massives">{{ student.record_book }}</td>
+                        <th class="table-massives">{{ student.full_name }}</th>
+                        <th class="table-massives">{{ student.total_score }}</th>
+                        <th class="table-massives">{{ student.group.faculty }}</th>
+                        <th class="table-massives">{{ student.group.course }}</th>
+                        <th class="table-massives">{{ student.group.name }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="profile-student__flex">
+            <div class="profile__student-diagramm">
+                <canvas id="radarChart" class="radar" style="display: block;box-sizing: border-box;height: 600px;width: 600px;"></canvas>
+            </div>
+
+            <div class="student-activity">
+                <table class="table-activity">
+                    <thead>
+                        <tr>
+                          <th class="table-massives table-massives__background" scope="col">Вид деятельности</th>
+                          <th class="table-massives table-massives__background"  scope="col">Баллы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>ОБЩЕСТВЕННАЯ</th><th>{{ student.social_score }}</th></tr>
+                        <tr><th>УЧЕБНАЯ</th><th>{{ student.academic_score }}</th></tr>
+                        <tr><th>СПОРТИВНАЯ</th><th>{{ student.sport_score }}</th></tr>
+                        <tr><th>КУЛЬТУРНАЯ</th><th>{{ student.cultural_score }}</th></tr>
+                        <tr><th>НАУЧНАЯ</th><th>{{ student.research_score }}</th></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="student-documents">
+                <h1>Достижения</h1>
+                {% for doc in documents %}
+                <div class="document-item">
+                    <span>{{ doc.uploaded_at|date:"d.m.Y" }}</span>
+                    <span>{{ doc.get_category_display }}</span>
+                    <span>{{ doc.achievement }}</span>
+                    <span>{{ doc.score }} баллов</span>
+                    <a href="{{ doc.file.url }}" download>Скачать</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

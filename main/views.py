@@ -3,7 +3,6 @@ from django.db.models import F, Q, ExpressionWrapper, IntegerField
 from teacherProfile.models import Group, Student
 
 def student_rating(request):
-    # Получение параметров
     category = request.GET.get('category', 'total')
     search = request.GET.get('search', '')
     faculty = request.GET.get('faculty', '')
@@ -12,7 +11,6 @@ def student_rating(request):
     sort = request.GET.get('sort', '')
     order = request.GET.get('order', 'desc')
 
-    # Маппинг категорий на поля сортировки (по убыванию)
     category_sort_mapping = {
         'total': '-calculated_total',
         'academic': '-academic_score',
@@ -23,13 +21,11 @@ def student_rating(request):
         'full_name': 'full_name'
     }
 
-    # Определение поля сортировки
     if sort:
         sort_field = f'-{sort}' if order == 'desc' else sort
     else:
         sort_field = category_sort_mapping.get(category, '-calculated_total')
 
-    # Аннотирование общего рейтинга
     queryset = Student.objects.annotate(
         calculated_total=ExpressionWrapper(
             F('academic_score') + 
@@ -41,7 +37,6 @@ def student_rating(request):
         )
     ).select_related('group')
 
-    # Фильтрация
     if search:
         queryset = queryset.filter(
             Q(full_name__icontains=search) | 
@@ -54,7 +49,6 @@ def student_rating(request):
     if group:
         queryset = queryset.filter(group__name=group)
 
-    # Сортировка по убыванию баллов
     queryset = queryset.order_by(sort_field)
 
     context = {

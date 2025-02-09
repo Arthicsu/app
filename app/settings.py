@@ -39,9 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_htmx",
     'rest_framework',
-    'teacherProfile',
     'main',
     'users',
+    'teacherProfile',
+    'studentProfile',
 ]
 
 HTMX = {
