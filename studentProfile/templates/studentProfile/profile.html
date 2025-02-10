@@ -48,50 +48,53 @@
             <table class="table-student">
                 <thead>
                     <tr>
-                      <th class="table-massives"  scope="col">Номер зачётной книги</th>
-                      <th class="table-massives"  scope="col">ФИО</th>
-                      <th class="table-massives"  scope="col">Баллы</th>
-                      <th class="table-massives"  scope="col">Кафедра</th>
-                      <th class="table-massives"  scope="col">Курс</th>
-                      <th class="table-massives"  scope="col">Группа</th>
+                        <th class="table-massives" scope="col">Номер зачётной книги</th>
+                        <th class="table-massives" scope="col">ФИО</th>
+                        <th class="table-massives" scope="col">Баллы</th>
+                        <th class="table-massives" scope="col">Кафедра</th>
+                        <th class="table-massives" scope="col">Курс</th>
+                        <th class="table-massives" scope="col">Группа</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="table-massives">{{ student.record_book }}</td>
-                        <th class="table-massives">{{ student.full_name }}</th>
-                        <th class="table-massives">{{ student.total_score }}</th>
-                        <th class="table-massives">{{ student.group.faculty }}</th>
-                        <th class="table-massives">{{ student.group.course }}</th>
-                        <th class="table-massives">{{ student.group.name }}</th>
+                        <td >{{ student.record_book }}</td>
+                        <th >{{ student.full_name }}</th>
+                        <th >{{ student.total_score }}</th>
+                        <th >{{ student.group.faculty }}</th>
+                        <th >{{ student.group.course }}</th>
+                        <th >{{ student.group.name }}</th>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="profile-student__flex">
-            <div class="profile__student-diagramm">
-                <canvas id="radarChart" class="radar" style="display: block;box-sizing: border-box;height: 600px;width: 600px;"></canvas>
+            <div class="left-block">
+                <div class="profile__student-diagramm">
+                    <canvas id="radarChart" class="radar" style="display: block; box-sizing: border-box; height: 600px; width: 600px;"></canvas>
+                </div>
             </div>
-
-            <div class="student-activity">
-                <table class="table-activity">
-                    <thead>
-                        <tr>
-                          <th class="table-massives table-massives__background" scope="col">Вид деятельности</th>
-                          <th class="table-massives table-massives__background"  scope="col">Баллы</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>ОБЩЕСТВЕННАЯ</th><th>{{ student.social_score }}</th></tr>
-                        <tr><th>УЧЕБНАЯ</th><th>{{ student.academic_score }}</th></tr>
-                        <tr><th>СПОРТИВНАЯ</th><th>{{ student.sport_score }}</th></tr>
-                        <tr><th>КУЛЬТУРНАЯ</th><th>{{ student.cultural_score }}</th></tr>
-                        <tr><th>НАУЧНАЯ</th><th>{{ student.research_score }}</th></tr>
-                    </tbody>
-                </table>
+        
+            <div class="right-block">
+                <div class="student-activity">
+                    <table class="table-activity">
+                        <thead>
+                            <tr>
+                                <th class="table-massives table-massives__background" scope="col">Вид деятельности</th>
+                                <th class="table-massives table-massives__background" scope="col">Баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th>ОБЩЕСТВЕННАЯ</th><th>{{ student.social_score }}</th></tr>
+                            <tr><th>УЧЕБНАЯ</th><th>{{ student.academic_score }}</th></tr>
+                            <tr><th>СПОРТИВНАЯ</th><th>{{ student.sport_score }}</th></tr>
+                            <tr><th>КУЛЬТУРНАЯ</th><th>{{ student.cultural_score }}</th></tr>
+                            <tr><th>НАУЧНАЯ</th><th>{{ student.research_score }}</th></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
             <div class="student-documents">
                 <h2>Документы</h2>
                 {% for doc in documents %}
@@ -103,7 +106,7 @@
                     <div class="doc-achievement">{{ doc.achievement }}</div>
                     <div class="doc-score">{{ doc.score }} баллов</div>
                     <a href="{{ doc.file.url }}" download class="doc-download">
-                        Скачать ({{ doc.file.name|slice:"-3:"|upper }})
+                        Скачать ({{ doc.file.name|slice:"-4:"|upper }})
                     </a>
                 </div>
                 {% empty %}

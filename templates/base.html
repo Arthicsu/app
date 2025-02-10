@@ -15,40 +15,23 @@
 </head>
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-		const userNames = document.querySelectorAll('.header-link__item');
-
-		userNames.forEach(element => {
-			const fullName = element.textContent.trim().split(' ');
+		document.querySelectorAll('.header-link__item').forEach(element => {
+			const fullName = element.textContent.trim().split(/\s+/).filter(Boolean);
 			
 			if (fullName.length >= 2) {
 				let formattedName = fullName[0];
-				
-				formattedName += ' ' + fullName[1][0] + '.'; 
+				formattedName += ' ' + fullName[1][0] + '.';
 				
 				if (fullName.length >= 3) {
 					formattedName += fullName[2][0] + '.';
 				}
-				
 				element.textContent = formattedName;
 			}
 		});
 	});
 </script>
-<script defer>
-	document.addEventListener('DOMContentLoaded', function() {
-		const formatName = (element) => {
-			const parts = element.textContent.trim().split(/\s+/).filter(Boolean);
-			if (parts.length >= 2) {
-				let formatted = parts[0] + ' '; 
-				formatted += parts[1][0] + '.'; 
-				if (parts.length >= 3) formatted += parts[2][0] + '.'; 
-				element.textContent = formatted;
-			}
-		};
-	
-		document.querySelectorAll('.header-link__item').forEach(formatName);
-	});
-</script>
+
+
 <body>
 	<header class="header">
 		<div class="container">

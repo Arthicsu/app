@@ -30,6 +30,33 @@ function updateGroups() {
     window.location.search = params.toString();
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Обработчик выбора группы
+    document.querySelectorAll('.group-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const groupId = this.dataset.groupId;
+            const url = new URL(window.location);
+            
+            if (this.classList.contains('active')) {
+                url.searchParams.delete('group');
+            } else {
+                url.searchParams.set('group', groupId);
+            }
+            
+            window.location.href = url.toString();
+        });
+    });
+
+    // Обновляем активную группу при загрузке
+    const params = new URLSearchParams(window.location.search);
+    const activeGroupId = params.get('group');
+    if (activeGroupId) {
+        const activeTab = document.querySelector(`.group-tab[data-group-id="${activeGroupId}"]`);
+        if (activeTab) activeTab.classList.add('active');
+    }
+});
+
+// Модифицированная функция удаления группы
 async function removeGroup(event, groupId) {
     event.stopPropagation();
     const response = await fetch(`/teacher/api/groups/${groupId}/remove/`, {
@@ -39,12 +66,17 @@ async function removeGroup(event, groupId) {
     
     if (response.ok) {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('group') == groupId) {
+        const curatedGroups = document.querySelectorAll('.group-tab');
+        
+        if (params.get('group') == groupId && curatedGroups.length > 0) {
+            // Выбираем первую доступную группу после удаления
+            const newGroupId = curatedGroups[0].dataset.groupId;
+            params.set('group', newGroupId);
+        } else if (curatedGroups.length === 0) {
             params.delete('group');
-            window.location.search = params.toString();
-        } else {
-            window.location.reload();
         }
+        
+        window.location.search = params.toString();
     }
 }
 
@@ -128,3 +160,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initSorting();
 });
+

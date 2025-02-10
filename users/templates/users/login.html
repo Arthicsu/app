@@ -19,19 +19,42 @@
             <h1 class="login-role">Авторизация</h1>
             <form method="post" class="login-form__form">
                 {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="alert">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
                 <div class="login-form__field">
                     <label class="label-login">Имя пользователя</label>
                     <div class="login-input">
-                        <input type="text" id="username" name="username" class="login-input__field" required>
+                        <input type="text" id="username" name="username" class="login-input__field" 
+                               value="{{ form.username.value|default_if_none:'' }}" required>
                     </div>
+                    {% for error in form.username.errors %}
+                        <div class="alert">
+                            <p>{{ error }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
+                
                 <div class="login-form__field">
                     <label class="label-login">Пароль</label>
                     <div class="login-input">
                         <input type="password" name="password" class="login-input__field" id="passwordInput" required>
                     </div>
+                    {% for error in form.password.errors %}
+                        <div class="alert">
+                            <p>{{ error }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
+                
                 <button class="login-button" type="submit">Войти</button>
+                
                 <p class="login-form__links">
                     <a class="login-link" href="{% url 'user:registration' %}">Зарегистрироваться</a>
                     <span class="login-separator"></span>

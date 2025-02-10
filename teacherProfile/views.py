@@ -22,14 +22,14 @@ class TeacherProfileView(View):
             except Group.DoesNotExist:
                 pass
         
-        if not selected_group and curated_groups.exists():
-            selected_group = curated_groups.first()
-        
         available_groups = Group.objects.filter(curator__isnull=True)
         if faculty:
             available_groups = available_groups.filter(faculty=faculty)
         if course:
             available_groups = available_groups.filter(course=course)
+        
+        if not selected_group and curated_groups.exists():
+            selected_group = curated_groups.first()
         
         students = Student.objects.filter(group=selected_group) if selected_group else []
         
@@ -129,5 +129,3 @@ class StudentActionsView(View):
             return JsonResponse({'error': 'Forbidden'}, status=403)
         student.delete()
         return JsonResponse({'status': 'deleted'})
-    
-

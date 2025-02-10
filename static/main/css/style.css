@@ -1126,7 +1126,8 @@ a{
 	font-weight: 600;
   }
   .table-massives {
-	color: #0050CF;
+	color: white;
+	background-color: #0050CF;
 	border-bottom:2px solid rgb(140 140 140);
   }
 
@@ -1179,4 +1180,8 @@ a{
 .student-link:hover {
     color: #003399;
     text-decoration: underline;
+}
+
+.profile-job {
+	white-space: pre-line;
 }

@@ -27,7 +27,7 @@
                 {% endfor %}
             </nav>
             
-            <div class="filter-panel">
+            {% comment %} <div class="filter-panel">
                 <input type="text" class="search-input" name="search"
                        placeholder="Поиск по ФИО или номеру зачётки"
                        value="{{ search }}"
@@ -61,7 +61,7 @@
                     </option>
                     {% endfor %}
                 </select>
-            </div>
+            </div> {% endcomment %}
             
             <div class="rating-table">
                 <table class="table-student">

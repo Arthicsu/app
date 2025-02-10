@@ -3,7 +3,15 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/normalize.css' %}">
 <link rel="stylesheet" href="{% static 'teacherProfile/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'main/css/rating.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/htmx.org@1.9.6"></script>
+<script src="{% static 'teacherProfile/js/script.js' %}"></script>
+<script src="{% static 'main/js/script.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,8 +21,10 @@
             <div class="container-profile">
                 <h1 class="profile-title">Информация о Вас</h1>
                 <img src="{% static 'teacherProfile/media/kazakov.svg' %}" alt="Фото профиля" class="profile-img">
-                <p class="profile-name">ФИО: {{ user.get_full_name }}</p>
-                <p class="profile-job">Должность: {{ user.position }}</p>
+                <p class="profile-name">
+                    ФИО: {{ user.last_name }} {{ user.first_name }}{% if user.patronymic %} {{ user.patronymic }}{% endif %}
+                </p>                
+                <p class="profile-job">Должность: <br> {{ user.position }}</p>
                 <p class="profile-groups">Курируемые группы: 
                     {% for group in curated_groups %}
                         {{ group.name }}{% if not forloop.last %}, {% endif %}
@@ -46,14 +56,15 @@
                         </select>
                     </div>
 
-                    <div class="current-groups" onchange="updateGroups()">
+                    <div class="current-groups">
                         <h4>Ваши группы:</h4>
                         <div class="group-list">
                             {% for group in curated_groups %}
-                            <div class="group-tab {% if group.id == selected_group.id %}active{% endif %}">
+                            <div class="group-tab {% if group.id == selected_group.id %}active{% endif %}" 
+                                 data-group-id="{{ group.id }}">
                                 {{ group.name }}
                                 <button class="remove-group" 
-                                        onclick="removeGroup(event, {{ group.id }})">×</button>
+                                        onclick="removeGroup(event, {{ group.id }})">x</button>
                             </div>
                             {% endfor %}
                         </div>
@@ -73,22 +84,41 @@
                 </div>
             </div>
         </div>
-
-        <div class="students-section">
-            <h2>Студенты группы: {{ selected_group.name|default:"Группа не выбрана!" }}</h2>
-            <div class="students-list" id="students-list">
-                {% for student in students %}
-                <div class="student-item" data-id="{{ student.id }}">
-                    <span>{{ forloop.counter }}. {{ student.full_name }}</span>
-                    <button class="delete-btn" onclick="deleteStudent({{ student.id }})">×</button>
+        <div class="rating-table">
+            <div class="students-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px;">
+                    <h2 style="margin: 0;">Студенты группы: {{ selected_group.name|default:"Группа не выбрана!" }}</h2>
+                    <button class="add-student-btn" onclick="showAddForm()">+ Добавить студента</button>
                 </div>
-                {% endfor %}
-                {% if form.image.errors %}
-                <div class="alert alert-danger alert-dismissible fade show">{{form.image.errors}}</div>
-                {% endif %}
-            </div>
-            <button class="add-student-btn" onclick="showAddForm()">+ Добавить студента</button>
-        </div>
+                
+
+                <table class="table-student" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th class="sort-header" style="text-align: center; vertical-align: middle;">№</th>
+                            <th class="sort-header" style="text-align: center; vertical-align: middle;">ФИО</th>
+                            <th class="sort-header" style="text-align: center; vertical-align: middle;">Номер зачётной книги</th>
+                            <th class="sort-header" style="text-align: center; vertical-align: middle;">Баллы</th>
+                            <th class="sort-header" style="text-align: center; vertical-align: middle;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-list">
+                        {% for student in students %}
+                        <tr class="student-item" data-id="{{ student.id }}">
+                            <td style="text-align: center; vertical-align: middle;">{{ forloop.counter }}.</td> 
+                            <td style="text-align: center; vertical-align: middle;">{{ student.full_name }}</td>
+                            <td style="text-align: center; vertical-align: middle;">{{ student.record_book }}</td>
+                            <td style="text-align: center; vertical-align: middle;">{{ student.total_score }}</td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <button class="delete-btn" onclick="deleteStudent({{ student.id }})">X</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+        
+        
     </div>
 </section>
 

@@ -1,3 +1,56 @@
+/* Основные цвета */
+:root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --success: #27ae60;
+    --danger: #e74c3c;
+}
+
+th, td {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modern-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+}
+
+.modern-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+@media (max-width: 768px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .groups-column {
+        order: 2;
+    }
+}
+
 .teacher-dashboard {
     padding: 2rem;
     max-width: 1200px;
@@ -64,7 +117,6 @@
     padding: 0.5rem;
 }
 
-/* Добавленные стили */
 .group-manager {
     margin-bottom: 2rem;
     padding: 1rem;
@@ -107,7 +159,6 @@
     margin-left: auto;
 }
 
-/* Блок управления группами */
 .container-group {
     margin-top: 2rem;
     padding: 1.5rem;
@@ -386,4 +437,11 @@
 .modern-input:required:not(:placeholder-shown):invalid {
     border-color: #dc3545;
     background: #fff5f5;
+}
+
+.profile-job {
+    word-wrap: break-word; /* Переносит текст на новую строку, если он не помещается */
+    overflow-wrap: break-word; /* Альтернатива word-wrap для современных браузеров */
+    white-space: normal; /* Разрешает перенос текста (по умолчанию уже normal) */
+    max-width: 300px; /* Ограничивает ширину контейнера, чтобы текст переносился */
 }
