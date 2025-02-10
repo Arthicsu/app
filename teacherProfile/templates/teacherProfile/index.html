@@ -81,6 +81,7 @@
                         </select>
                         <button class="add-group-btn" onclick="addGroup()">+ Добавить группу</button>
                     </div>
+                    <a href="{% url 'loadFiles:upload' %}" class="add-group-btn" style="display: flex; justify-content: center; align-items: center; text-align: center;">Загрузить документы</a>
                 </div>
             </div>
         </div>
@@ -116,9 +117,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                
-        
-        
+            </div>
     </div>
 </section>
 

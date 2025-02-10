@@ -591,3 +591,22 @@ td {
 	max-width: 600px;
 	margin: 20px auto;
 }
+
+.no-file {
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.doc-download {
+    color: #0050CF;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #0050CF;
+    border-radius: 4px;
+}
+
+.doc-download:hover {
+    background-color: #0050CF;
+    color: white;
+}

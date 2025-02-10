@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-<body class="scrollbar-hidden">
+<body>
     <section class="achievements">
         <div class="container">
             <h1 class="achievements-title">Загрузка достижений</h1>
@@ -69,7 +69,7 @@
                         <button type="button" class="achievements-button" onclick="document.getElementById('file-input').click()">
                             Выберите файлы (.PDF, .DOC, .DOCX, .JPG, .PNG)
                         </button>
-                        <input id="file-input" type="file" name="files" multiple hidden accept=".pdf,.doc,.docx,.jpg,.png" required>
+                        <input id="file-input" type="file" name="files" multiple hidden accept=".pdf,.doc,.docx,.jpg,.png">
                     </div>
 
                     <button type="submit" class="achievements-button-dowloading">Загрузить</button>
@@ -80,7 +80,7 @@
                         <img class="qrcode" style="width: 250px;" src="{% static 'loadFiles/media/file.svg' %}" alt="QR-код">
                         <div id="file-list" class="file-list"></div>
                     </div>
-                    <div class="achievements-flex">
+                    <div class="achievements-flex" style="margin-top: 10px">
                         <p class="achievements-text-2">
                             Актуальную разбалловку узнайте здесь:<br>
                         <a href="https://clck.ru/3GCR4s" class="achievements-link">clck.ru/3GCR4s</a><br>

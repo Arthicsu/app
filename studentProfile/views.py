@@ -4,7 +4,7 @@ import json
 
 def student_profile(request, student_id):
     student = get_object_or_404(Student, id=student_id)
-    documents = student.student_documents.all()
+    achievements = student.student_documents.all().order_by('-uploaded_at')
     
     radar_data = [
         student.social_score,
@@ -16,7 +16,7 @@ def student_profile(request, student_id):
     
     context = {
         'student': student,
-        'documents': documents,
+        'achievements': achievements,
         'radar_labels_json': json.dumps([
             "ОБЩЕСТВЕННАЯ ДЕЯТЕЛЬНОСТЬ",
             "УЧЕБНАЯ ДЕЯТЕЛЬНОСТЬ", 
